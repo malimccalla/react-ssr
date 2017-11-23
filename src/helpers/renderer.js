@@ -1,10 +1,19 @@
+// @flow
 import React from 'react'
 import { renderToString } from 'react-dom/server'
+import { StaticRouter } from 'react-router-dom'
+import type { $Request } from 'express'
 
-import Home from '../client/components/Home'
+import Routes from '../client/Routes'
 
-export default () => {
-  const content = renderToString(<Home />)
+export default (req: $Request) => {
+  const context = {}
+
+  const content = renderToString(
+    <StaticRouter location={req.path} context={context}>
+      <Routes />
+    </StaticRouter>,
+  )
 
   return `
     <html>
