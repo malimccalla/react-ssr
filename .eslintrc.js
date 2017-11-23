@@ -27,6 +27,9 @@ module.exports = {
       'error',
       { vars: 'all', args: 'none', ignoreRestSiblings: true },
     ],
+    'function-paren-newline': 'off',
     'react/prop-types': 'off',
+    'react/jsx-filename-extension': 'off',
+    'react/jsx-closing-tag-location': 'off',
   },
 }
