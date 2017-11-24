@@ -7,7 +7,7 @@ const app = express()
 
 app.use(express.static('public'))
 
-app.get('/', (req: $Request, res: $Response) => {
+app.get('*', (req: $Request, res: $Response) => {
   res.send(renderer(req))
 })
 
