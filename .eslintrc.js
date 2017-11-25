@@ -31,5 +31,6 @@ module.exports = {
     'react/prop-types': 'off',
     'react/jsx-filename-extension': 'off',
     'react/jsx-closing-tag-location': 'off',
+    'react/prefer-stateless-function': 'off',
   },
 }
