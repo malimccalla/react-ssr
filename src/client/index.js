@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { renderRoutes } from 'react-router-config'
 
 import { rootEpic, rootReducer } from './modules/root'
-import Routes from './Routes'
+import routes from './routes'
 
 const epicMiddleware = createEpicMiddleware(rootEpic)
 
@@ -18,7 +18,7 @@ const store = createStore(rootReducer, {}, applyMiddleware(epicMiddleware))
 ReactDOM.hydrate(
   <Provider store={store}>
     <BrowserRouter>
-      <div>{renderRoutes(Routes)}</div>
+      <div>{renderRoutes(routes)}</div>
     </BrowserRouter>
   </Provider>,
   document.querySelector('#root'),

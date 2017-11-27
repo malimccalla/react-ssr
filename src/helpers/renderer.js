@@ -8,7 +8,7 @@ import { renderRoutes } from 'react-router-config'
 import { type $Request } from 'express'
 import { type Store } from 'redux'
 
-import Routes from '../client/Routes'
+import routes from '../client/routes'
 
 export default (req: $Request, store: Store<*, *>) => {
   const context = {}
@@ -16,7 +16,7 @@ export default (req: $Request, store: Store<*, *>) => {
   const content = renderToString(
     <Provider store={store}>
       <StaticRouter location={req.path} context={context}>
-        <div>{renderRoutes(Routes)}</div>
+        <div>{renderRoutes(routes)}</div>
       </StaticRouter>
     </Provider>,
   )
