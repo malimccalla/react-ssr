@@ -26,13 +26,13 @@ export const actions = {
 }
 
 // EPICS
-const fetchUserEpic = (actions$: Observable<*>) =>
+const fetchUsersEpic = (actions$: Observable<*>) =>
   actions$
     .filter((action: Action) => action.type === 'Users/fetchUsers')
     .mergeMap((action: Action) => axios.get(`${api}/users`))
     .map(response => actions.fetchUsersSuccess(response.data))
 
-export const usersEpic = combineEpics(fetchUserEpic)
+export const usersEpic = combineEpics(fetchUsersEpic)
 
 // STATE
 export type State = Array<*>

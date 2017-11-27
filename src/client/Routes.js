@@ -1,6 +1,6 @@
 // @flow
 import Home from './pages/Home'
-import UsersList from './components/UsersList'
+import UsersList, { loadData } from './components/UsersList'
 
 export default [
   {
@@ -11,5 +11,6 @@ export default [
   {
     path: '/users',
     component: UsersList,
+    loadData,
   },
 ]

@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { type Store } from 'redux'
 
 import { actions, type State as UsersState } from '../actions'
 
@@ -28,7 +29,13 @@ class UsersList extends Component<Props, void> {
   }
 }
 
+function loadData(store: Store<*, *>) {
+  return store.dispatch(actions.fetchUsers())
+}
+
 const mapStateToProps = ({ users }): StateProps => ({ users })
+
+export { loadData }
 export default connect(mapStateToProps, {
   fetchUsers: actions.fetchUsers,
 })(UsersList)
