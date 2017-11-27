@@ -8,10 +8,14 @@ module.exports = {
   env: { node: true, browser: true },
   rules: {
     'flowtype/generic-spacing': 'off',
-    'import/order': ['error', { 'newlines-between': 'always-and-inside-groups' }],
+    'import/order': [
+      'error',
+      { 'newlines-between': 'always-and-inside-groups' },
+    ],
     'import/default': 'off',
     'import/named': 'off',
     'no-undef': 'error',
+    'arrow-parens': 'off',
     'no-undef-init': 'error',
     'no-console': 'off',
     semi: 'off',

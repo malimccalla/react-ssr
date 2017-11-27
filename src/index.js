@@ -17,9 +17,24 @@ app.get('*', (req: $Request, res: $Response) => {
     ({ route }) => (route.loadData ? route.loadData(store) : null),
   )
 
-  console.log('actions to load data', actions)
+  let currentValue
+  function handleChange() {
+    const previousValue = currentValue
+    currentValue = store.getState()
 
-  res.send(renderer(req, store))
+    if (previousValue !== currentValue) {
+      console.log('state changed from', previousValue, 'to', currentValue)
+    }
+  }
+
+  store.subscribe(handleChange)
+
+  setTimeout(() => {
+    console.log('delayed store', store.getState())
+    res.send(renderer(req, store))
+  }, 500)
+
+  console.log('actions to load data', actions)
 })
 
 app.listen(3000, () => {
