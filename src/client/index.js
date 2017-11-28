@@ -12,7 +12,11 @@ import routes from './routes'
 
 const epicMiddleware = createEpicMiddleware(rootEpic)
 
-const store = createStore(rootReducer, {}, applyMiddleware(epicMiddleware))
+const store = createStore(
+  rootReducer,
+  window.__PRELOADED_STATE__,
+  applyMiddleware(epicMiddleware),
+)
 
 // $FlowFixMe // https://github.com/facebook/flow/pull/5074
 ReactDOM.hydrate(

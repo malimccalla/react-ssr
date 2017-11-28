@@ -13,28 +13,15 @@ app.use(express.static('public'))
 app.get('*', (req: $Request, res: $Response) => {
   const store = createStore()
 
-  const actions = matchRoutes(routes, req.path).map(
+  matchRoutes(routes, req.path).map(
     ({ route }) => (route.loadData ? route.loadData(store) : null),
   )
 
-  let currentValue
-  function handleChange() {
-    const previousValue = currentValue
-    currentValue = store.getState()
-
-    if (previousValue !== currentValue) {
-      console.log('state changed from', previousValue, 'to', currentValue)
-    }
-  }
-
-  store.subscribe(handleChange)
-
+  // figure out how to render once all observable tasks finish
   setTimeout(() => {
     console.log('delayed store', store.getState())
     res.send(renderer(req, store))
   }, 500)
-
-  console.log('actions to load data', actions)
 })
 
 app.listen(3000, () => {

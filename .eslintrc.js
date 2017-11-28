@@ -17,6 +17,7 @@ module.exports = {
     'no-undef': 'error',
     'arrow-parens': 'off',
     'no-undef-init': 'error',
+    'no-underscore-dangle': 'off',
     'no-console': 'off',
     semi: 'off',
     'no-unused-expressions': [
