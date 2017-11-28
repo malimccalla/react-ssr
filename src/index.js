@@ -18,9 +18,11 @@ app.get('*', (req: $Request, res: $Response) => {
     ({ route }) => (route.loadData ? route.loadData(store) : null),
   )
 
+  // test if data actually loads on server
+  // TODO preload data using saga....
   setTimeout(() => {
     res.send(renderer(req, store))
-  }, 1000)
+  }, 500)
 
   console.log('actions', actions)
 })
