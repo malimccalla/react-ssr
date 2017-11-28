@@ -1,12 +1,10 @@
 // @flow
 import axios from 'axios'
-import { combineEpics } from 'redux-observable'
-import { type Observable } from 'rxjs'
+import { call, takeEvery, put } from 'redux-saga/effects'
 
 import { api } from '../constants'
 import { type UserType } from '../types'
 
-// TYPES
 type FetchUsers = { type: 'Users/fetchUsers' }
 type FetchUserSuccess = {
   type: 'Users/fetchUsersSuccess',
@@ -14,32 +12,35 @@ type FetchUserSuccess = {
 }
 
 export type Action = FetchUsers | FetchUserSuccess
-// ACTIONS CREATORS
 
 export const actions = {
   fetchUsers(): FetchUsers {
     return { type: 'Users/fetchUsers' }
   },
   fetchUsersSuccess(payload: Array<UserType>): FetchUserSuccess {
+    console.log('in success', payload)
     return { type: 'Users/fetchUsersSuccess', payload }
   },
 }
 
-// EPICS
-const fetchUsersEpic = (actions$: Observable<*>) =>
-  actions$
-    .filter((action: Action) => action.type === 'Users/fetchUsers')
-    .mergeMap((action: Action) => axios.get(`${api}/users`))
-    .map(response => actions.fetchUsersSuccess(response.data))
+function* fetchUsersSaga() {
+  try {
+    const res = yield call(axios.get, `${api}/users`)
+    yield put(actions.fetchUsersSuccess(res.data))
+  } catch (e) {
+    console.log('error', e)
+  }
+}
 
-export const usersEpic = combineEpics(fetchUsersEpic)
+export function* saga(): * {
+  console.log('in users saga')
+  yield takeEvery('Users/fetchUsers', fetchUsersSaga)
+}
 
-// STATE
 export type State = Array<*>
 
 const initialState: State = []
 
-// REDUCER
 export default function reducer(
   state: State = initialState,
   action: Action,

@@ -1,4 +1,5 @@
 // @flow
+import 'babel-polyfill'
 import express, { type $Request, type $Response } from 'express'
 import { matchRoutes } from 'react-router-config'
 
@@ -17,24 +18,11 @@ app.get('*', (req: $Request, res: $Response) => {
     ({ route }) => (route.loadData ? route.loadData(store) : null),
   )
 
-  let currentValue
-  function handleChange() {
-    const previousValue = currentValue
-    currentValue = store.getState()
-
-    if (previousValue !== currentValue) {
-      console.log('state changed from', previousValue, 'to', currentValue)
-    }
-  }
-
-  store.subscribe(handleChange)
-
   setTimeout(() => {
-    console.log('delayed store', store.getState())
     res.send(renderer(req, store))
-  }, 500)
+  }, 1000)
 
-  console.log('actions to load data', actions)
+  console.log('actions', actions)
 })
 
 app.listen(3000, () => {

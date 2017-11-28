@@ -8,10 +8,6 @@ module.exports = {
   env: { node: true, browser: true },
   rules: {
     'flowtype/generic-spacing': 'off',
-    'import/order': [
-      'error',
-      { 'newlines-between': 'always-and-inside-groups' },
-    ],
     'import/default': 'off',
     'import/named': 'off',
     'no-undef': 'error',

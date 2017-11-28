@@ -1,10 +1,13 @@
 // @flow
-import { combineEpics } from 'redux-observable'
 import { combineReducers } from 'redux'
 
-import users, { usersEpic } from '../actions'
+import { all } from 'redux-saga/effects'
 
-export const rootEpic = combineEpics(usersEpic)
+import users, { saga as usersSaga } from '../actions'
+
+export function* rootSaga(): * {
+  yield all([usersSaga()])
+}
 
 export const rootReducer = combineReducers({
   users,

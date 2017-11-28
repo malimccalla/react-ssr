@@ -1,13 +1,14 @@
 // @flow
 import { createStore, applyMiddleware } from 'redux'
-import { createEpicMiddleware } from 'redux-observable'
+import createSagaMiddleware from 'redux-saga'
 
-import { rootEpic, rootReducer } from '../client/modules/root'
+import { rootSaga, rootReducer } from '../client/modules/root'
 
-const epicMiddleware = createEpicMiddleware(rootEpic)
+const sagaMiddleware = createSagaMiddleware()
 
 export default () => {
-  const store = createStore(rootReducer, {}, applyMiddleware(epicMiddleware))
+  const store = createStore(rootReducer, {}, applyMiddleware(sagaMiddleware))
+  sagaMiddleware.run(rootSaga)
 
   return store
 }
